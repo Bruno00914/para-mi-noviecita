@@ -1,109 +1,248 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Carta para mi princesa</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sobre de Amor con Imagen</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background-color: #fefefe;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-    }
-    .container {
-      position: relative;
-      width: 500px;
-      height: 300px;
-    }
     .envelope {
-      width: 100%;
-      height: 100%;
-      background: #ffffff;
-      border: 2px solid #ccc;
-      border-radius: 10px;
       position: relative;
+      width: 320px;
+      height: 220px;
+      margin: 100px auto;
+      perspective: 1000px;
       cursor: pointer;
-      transition: transform 1s;
     }
-    .envelope::before {
-      content: "";
+    .envelope-body {
       position: absolute;
       width: 100%;
-      height: 50%;
-      background: #ddd;
-      top: 0;
-      left: 0;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
+      height: 100%;
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+      transform-style: preserve-3d;
+      border: 1px solid #e5e5e5;
+    }
+    .envelope-flap {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #f8f8f8;
+      border-radius: 5px;
       transform-origin: top;
-      transition: transform 1s;
-      z-index: 2;
+      transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      z-index: 3;
+      box-shadow: 0 -10px 15px rgba(0, 0, 0, 0.05);
+      clip-path: polygon(0% 0%, 50% 50%, 100% 0%);
+      border: 1px solid #e5e5e5;
+      border-bottom: none;
     }
-    .envelope.open {
-      transform: translateY(-150px);
-    }
-    .envelope.open::before {
+    .envelope.open .envelope-flap {
       transform: rotateX(180deg);
     }
     .letter {
       position: absolute;
-      top: -100%;
-      left: 0;
-      width: 100%;
-      height: 400px;
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      box-sizing: border-box;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      width: 300px;
+      height: 85%;
+      background: #fff9f5;
+      left: 5%;
+      top: 10%;
+      transition: all 0.8s ease 0.4s;
+      transform: translateX(0);
       opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 1s ease, transform 1s ease;
-      z-index: 1;
+      z-index: 2;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      overflow: hidden;
+      font-family: 'Georgia', serif;
+      color: #333;
+      border: 1px solid #f3e5d8;
     }
-    .envelope.open + .letter {
+    .envelope.open .letter {
+      transform: translateX(120%);
       opacity: 1;
-      transform: translateY(0);
+      height: 180%;
     }
-    .letter img {
-      max-width: 100px;
-      float: right;
-      margin-left: 20px;
+
+    /* Imagen vertical chill */
+    .photo {
+      position: absolute;
+      height: 220px;
+      width: auto;
+      left: -170px;
+      top: 10%;
+      opacity: 0;
+      transition: all 0.8s ease 0.4s;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      border: 2px solid #e55039;
+      z-index: 2;
+      object-fit: cover;
+    }
+    .envelope.open .photo {
+      transform: translateX(170px);
+      opacity: 1;
+      height: 220px;
+      width: auto;
+    }
+
+    .stamp {
+      position: absolute;
+      width: 60px;
+      height: 70px;
+      background: #e55039;
+      right: 15px;
+      top: 15px;
+      z-index: 4;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      transform: rotate(10deg);
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .heart {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: #e55039;
+      transform: rotate(45deg);
+      left: 35px;
+      top: 35px;
+      z-index: 4;
+      opacity: 0.8;
+    }
+
+    .heart:before,
+    .heart:after {
+      content: '';
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: #e55039;
+      border-radius: 50%;
+    }
+
+    .heart:before {
+      top: -12.5px;
+      left: 0;
+    }
+
+    .heart:after {
+      top: 0;
+      left: -12.5px;
+    }
+
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    .envelope-container {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .signature {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 24px;
+      color: #e55039;
+      margin-top: 15px;
+      text-align: right;
+    }
+
+    .letter-content {
+      height: 100%;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+
+    .letter-content::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .letter-content::-webkit-scrollbar-thumb {
+      background: #e55039;
       border-radius: 10px;
     }
-    .letter p {
-      font-size: 16px;
-      line-height: 1.5;
-      color: #333;
+
+    .rose-petal {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: #ff6b81;
+      border-radius: 50% 0 50% 50%;
+      opacity: 0.7;
+      z-index: 5;
+    }
+
+    .letter-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
     }
   </style>
 </head>
-<body>
-  <div class="container" onclick="abrir()">
-    <div class="envelope" id="sobre"></div>
-    <div class="letter">
-      <img src="data:image/jpeg;base64,**AQUÍ VA LA IMAGEN EN BASE64**">
-      <p>
-        <strong>Mi amor, mi vida, mi princesa:</strong><br><br>
-        Desde que nos conocimos sentí una conexión eterna contigo. Cada momento a tu lado es único, y no me canso de repetir lo especial que eres para mí. Ya estamos tan cerca de hacer realidad lo que soñamos, y quiero que sepas que de mi parte siempre saldrá lo mejor de mí. Haré todo lo posible por verte feliz, no importa cuán difícil sea el camino. Créeme, por ti y para ti, lo daré todo.<br><br>
-        Hay una frase de Pablo Neruda que me gusta:<br>
-        <em>"En un beso, sabrás todo lo que he callado."</em><br>
-        Y así será, porque cuando nuestros labios se encuentren, sin decir una sola palabra, te diré cuánto te súper, híper, duper, mega amo con todo mi ser.<br><br>
-        Con todo mi amor,<br>
-        <strong>Bruno</strong>
-      </p>
+<body class="bg-gradient-to-b from-pink-50 to-red-50 min-h-screen flex flex-col items-center justify-center p-4">
+  <div class="text-center mb-8">
+    <h1 class="text-4xl font-bold text-red-800 mb-2">Sobre de Amor</h1>
+  </div>
+
+  <div class="letter-container">
+    <div class="envelope-container">
+      <div class="envelope" id="envelope">
+        <div class="envelope-body"></div>
+        <div class="envelope-flap"></div>
+        <div class="stamp">Amor</div>
+        <div class="heart"></div>
+
+        <div class="letter">
+          <div class="letter-content">
+            <h3 class="text-xl font-semibold text-red-800 mb-4 text-center">Mi amor, mi vida, mi princesa:</h3>
+            <p class="mb-3">Desde que nos conocimos sentí una conexión eterna contigo. Cada momento a tu lado es único, y no me canso de repetir lo especial que eres para mí.</p>
+            <p class="mb-3">Ya estamos tan cerca de hacer realidad lo que soñamos, y quiero que sepas que de mi parte siempre saldrá lo mejor de mí. Haré todo lo posible por verte feliz, no importa cuán difícil sea el camino.</p>
+            <p class="mb-3">Créeme, por ti y para ti, lo daré todo.</p>
+            <p class="mb-4 italic">Hay una frase de Pablo Neruda que me gusta: "En un beso, sabrás todo lo que he callado." Y así será, porque cuando nuestros labios se encuentren, sin decir una sola palabra, te diré cuánto te súper, híper, duper, mega amo con todo mi ser.</p>
+            <div class="signature">Con todo mi amor,<br>Bruno</div>
+          </div>
+        </div>
+
+        <img class="photo" src="https://i.imgur.com/WppLDoe_d.webp" alt="Foto de amor" />
+      </div>
     </div>
   </div>
 
   <script>
-    function abrir() {
-      document.getElementById("sobre").classList.add("open");
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+      const envelope = document.getElementById('envelope');
+      envelope.addEventListener('click', function () {
+        this.classList.toggle('open');
+      });
+
+      // pétalos de rosa
+      for (let i = 0; i < 5; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'rose-petal';
+        petal.style.top = Math.random() * 80 + 10 + '%';
+        petal.style.left = Math.random() * 80 + 10 + '%';
+        petal.style.transform = `rotate(${Math.random() * 360}deg)`;
+        petal.style.opacity = Math.random() * 0.5 + 0.3;
+        petal.style.width = Math.random() * 10 + 10 + 'px';
+        petal.style.height = petal.style.width;
+        envelope.appendChild(petal);
+      }
+    });
   </script>
 </body>
 </html>
