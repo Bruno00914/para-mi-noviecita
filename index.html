@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sobre de Amor</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -10,9 +10,8 @@
       position: relative;
       width: 320px;
       height: 220px;
-      margin: 100px auto;
       perspective: 1000px;
-      cursor: pointer;
+      margin: auto;
     }
 
     .envelope-body {
@@ -21,7 +20,7 @@
       height: 100%;
       background: white;
       border-radius: 5px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
       z-index: 1;
       transform-style: preserve-3d;
       border: 1px solid #e5e5e5;
@@ -36,7 +35,7 @@
       transform-origin: top;
       transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
       z-index: 3;
-      box-shadow: 0 -10px 15px rgba(0,0,0,0.05);
+      box-shadow: 0 -10px 15px rgba(0, 0, 0, 0.05);
       clip-path: polygon(0% 0%, 50% 50%, 100% 0%);
       border: 1px solid #e5e5e5;
       border-bottom: none;
@@ -48,26 +47,19 @@
 
     .letter {
       position: absolute;
-      width: 300px;
-      height: 150%;
+      width: 100%;
+      height: 100%;
       background: #fff9f5;
-      left: 5%;
-      top: -30%;
-      transition: all 0.8s ease 0.4s;
-      transform: translateX(0);
-      opacity: 0;
-      z-index: 2;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      top: 0;
+      left: 0;
       padding: 20px;
-      overflow-y: auto;
+      opacity: 1;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       font-family: 'Georgia', serif;
       color: #333;
       border: 1px solid #f3e5d8;
-    }
-
-    .envelope.open .letter {
-      transform: translateX(120%);
-      opacity: 1;
+      z-index: 5;
+      overflow-y: auto;
     }
 
     .floating-heart {
@@ -113,42 +105,36 @@
         opacity: 0;
       }
     }
+
+    .signature {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 24px;
+      color: #e55039;
+      margin-top: 15px;
+      text-align: right;
+    }
   </style>
 </head>
-<body class="bg-gradient-to-b from-pink-50 to-red-50 min-h-screen flex flex-col items-center justify-center p-4 overflow-hidden">
-  <div class="text-center mb-8">
-    <h1 class="text-4xl font-bold text-red-800 mb-2">Sobre de Amor</h1>
-  </div>
-
-  <div class="envelope-container">
-    <div class="envelope" id="envelope">
-      <div class="envelope-body"></div>
-      <div class="envelope-flap"></div>
-      <div class="stamp">Amor</div>
-      <div class="heart"></div>
-
-      <div class="letter">
-        <div class="letter-content">
-          <p class="mb-3"><strong>Mi amor, mi vida, mi princesa:</strong></p>
-          <p class="mb-3">Desde que nos conocimos sentí una conexión eterna contigo. Cada momento a tu lado es único, y no me canso de repetir lo especial que eres para mí.</p>
-          <p class="mb-3">Ya estamos tan cerca de hacer realidad lo que soñamos, y quiero que sepas que de mi parte siempre saldrá lo mejor de mí. Haré todo lo posible por verte feliz, no importa cuán difícil sea el camino. Créeme, por ti y para ti, lo daré todo.</p>
-          <p class="mb-3">Hay una frase de Pablo Neruda que me gusta:</p>
-          <p class="mb-3 italic">"En un beso, sabrás todo lo que he callado."</p>
-          <p class="mb-3">Y así será, porque cuando nuestros labios se encuentren, sin decir una sola palabra, te diré cuánto te súper, híper, duper, mega amo con todo mi ser.</p>
-          <div class="signature">Con todo mi amor,<br>Bruno</div>
-        </div>
+<body class="bg-gradient-to-b from-pink-50 to-red-50 min-h-screen flex items-center justify-center p-4 overflow-hidden">
+  <div class="envelope open">
+    <div class="envelope-body"></div>
+    <div class="envelope-flap"></div>
+    <div class="stamp absolute top-2 right-2 bg-red-500 text-white px-2 py-1 text-xs font-bold rounded">Amor</div>
+    <div class="letter">
+      <div class="letter-content">
+        <p class="mb-3"><strong>Mi amor, mi vida, mi princesa:</strong></p>
+        <p class="mb-3">Desde que nos conocimos sentí una conexión eterna contigo. Cada momento a tu lado es único, y no me canso de repetir lo especial que eres para mí.</p>
+        <p class="mb-3">Ya estamos tan cerca de hacer realidad lo que soñamos, y quiero que sepas que de mi parte siempre saldrá lo mejor de mí. Haré todo lo posible por verte feliz, no importa cuán difícil sea el camino. Créeme, por ti y para ti, lo daré todo.</p>
+        <p class="mb-3">Hay una frase de Pablo Neruda que me gusta:</p>
+        <p class="mb-3 italic">"En un beso, sabrás todo lo que he callado."</p>
+        <p class="mb-3">Y así será, porque cuando nuestros labios se encuentren, sin decir una sola palabra, te diré cuánto te súper, híper, duper, mega amo con todo mi ser.</p>
+        <div class="signature">Con todo mi amor,<br>Bruno</div>
       </div>
     </div>
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const envelope = document.getElementById('envelope');
-      envelope.addEventListener('click', function () {
-        this.classList.toggle('open');
-      });
-
-      // Crear corazones flotantes aleatorios
       for (let i = 0; i < 20; i++) {
         const heart = document.createElement('div');
         heart.className = 'floating-heart';
@@ -162,3 +148,4 @@
   </script>
 </body>
 </html>
+
