@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sobre de Amor con Imagen</title>
+  <title>Sobre de Amor</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .envelope {
@@ -70,30 +70,52 @@
       opacity: 1;
     }
 
-    .photo {
+    .floating-heart {
       position: absolute;
-      height: 260px;
-      width: auto;
-      left: -200px;
-      top: 5%;
-      opacity: 0;
-      transition: all 0.8s ease 0.4s;
-      border-radius: 10px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      border: 2px solid #e55039;
-      z-index: 2;
-      object-fit: cover;
+      width: 20px;
+      height: 20px;
+      background: #e55039;
+      transform: rotate(45deg);
+      animation: floatHeart 6s linear infinite;
+      opacity: 0.7;
     }
 
-    .envelope.open .photo {
-      transform: translateX(200px);
-      opacity: 1;
-      height: 260px;
-      width: auto;
+    .floating-heart::before,
+    .floating-heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #e55039;
+      border-radius: 50%;
+    }
+
+    .floating-heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .floating-heart::after {
+      top: 0;
+      left: -10px;
+    }
+
+    @keyframes floatHeart {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 0.7;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-600px) rotate(45deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
-<body class="bg-gradient-to-b from-pink-50 to-red-50 min-h-screen flex flex-col items-center justify-center p-4">
+<body class="bg-gradient-to-b from-pink-50 to-red-50 min-h-screen flex flex-col items-center justify-center p-4 overflow-hidden">
   <div class="text-center mb-8">
     <h1 class="text-4xl font-bold text-red-800 mb-2">Sobre de Amor</h1>
   </div>
@@ -104,8 +126,6 @@
       <div class="envelope-flap"></div>
       <div class="stamp">Amor</div>
       <div class="heart"></div>
-
-      <img class="photo" src="https://i.imgur.com/WppLDoe.jpg" alt="Foto de amor" />
 
       <div class="letter">
         <div class="letter-content">
@@ -127,6 +147,17 @@
       envelope.addEventListener('click', function () {
         this.classList.toggle('open');
       });
+
+      // Crear corazones flotantes aleatorios
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'floating-heart';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.bottom = '-50px';
+        heart.style.animationDelay = (Math.random() * 5) + 's';
+        heart.style.animationDuration = (4 + Math.random() * 3) + 's';
+        document.body.appendChild(heart);
+      }
     });
   </script>
 </body>
