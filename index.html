@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Carta para mi princesa</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fefefe;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .container {
+      position: relative;
+      width: 500px;
+      height: 300px;
+    }
+    .envelope {
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      position: relative;
+      cursor: pointer;
+      transition: transform 1s;
+    }
+    .envelope::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 50%;
+      background: #ddd;
+      top: 0;
+      left: 0;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      transform-origin: top;
+      transition: transform 1s;
+      z-index: 2;
+    }
+    .envelope.open {
+      transform: translateY(-150px);
+    }
+    .envelope.open::before {
+      transform: rotateX(180deg);
+    }
+    .letter {
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 400px;
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-sizing: border-box;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1s ease, transform 1s ease;
+      z-index: 1;
+    }
+    .envelope.open + .letter {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .letter img {
+      max-width: 100px;
+      float: right;
+      margin-left: 20px;
+      border-radius: 10px;
+    }
+    .letter p {
+      font-size: 16px;
+      line-height: 1.5;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" onclick="abrir()">
+    <div class="envelope" id="sobre"></div>
+    <div class="letter">
+      <img src="data:image/jpeg;base64,**AQUÍ VA LA IMAGEN EN BASE64**">
+      <p>
+        <strong>Mi amor, mi vida, mi princesa:</strong><br><br>
+        Desde que nos conocimos sentí una conexión eterna contigo. Cada momento a tu lado es único, y no me canso de repetir lo especial que eres para mí. Ya estamos tan cerca de hacer realidad lo que soñamos, y quiero que sepas que de mi parte siempre saldrá lo mejor de mí. Haré todo lo posible por verte feliz, no importa cuán difícil sea el camino. Créeme, por ti y para ti, lo daré todo.<br><br>
+        Hay una frase de Pablo Neruda que me gusta:<br>
+        <em>"En un beso, sabrás todo lo que he callado."</em><br>
+        Y así será, porque cuando nuestros labios se encuentren, sin decir una sola palabra, te diré cuánto te súper, híper, duper, mega amo con todo mi ser.<br><br>
+        Con todo mi amor,<br>
+        <strong>Bruno</strong>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function abrir() {
+      document.getElementById("sobre").classList.add("open");
+    }
+  </script>
+</body>
+</html>
